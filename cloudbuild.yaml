@@ -1,0 +1,18 @@
+#Build Docker image
+steps:
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      ["build", "-t", "gcr.io/rb-munish-playground/cicd-testing:latest", "."]
+
+#Push Docker Image --
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["push", "gcr.io/rb-munish-playground/cicd-testing:latest"]
+
+#Deploy on K8s
+  - name: "gcr.io/cloud-builders/gke-deploy"
+    args:
+    - run
+    - --filename=nikhil-deployment.yaml
+    - --image=gcr.io/rb-munish-playground/cicd-testing:latest
+    - --location=us-central1-c
+    - --cluster=nikhil-public-cluster
