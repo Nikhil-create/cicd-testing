@@ -1,0 +1,32 @@
+#Deployment File
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cicd-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cicd-pod
+  template:
+    metadata:
+      labels:
+        app: cicd-pod
+    spec:
+      containers:
+      - name: cicd-container
+        image: gcr.io/rb-munish-playground/cicd-testing:latest
+
+#LoadBalancer Service
+--- 
+apiVersion: v1
+kind: Service
+metadata:
+  name: cicd-services
+spec:
+  type: LoadBalancer
+  selector:
+    app: cicd-pod
+  ports:
+  - port: 80
+    targetPort: 5000
