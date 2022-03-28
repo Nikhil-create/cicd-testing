@@ -12,6 +12,11 @@ class FlaskTestCase(unittest.TestCase):
         response = tester.get('/nikhil', content_type='html/text')
         self.assertEqual(response.status_code, 200)
 
+    def test_shivam(self):
+        tester= app.test_client(self)
+        response = tester.get('/shivam', content_type='html/text')
+        self.assertEqual(response.status_code, 200)
+
     # def test_wrong(self):
     #     tester= app.test_client(self)
     #     response = tester.get('/wrong', content_type='html/text')
