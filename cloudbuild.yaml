@@ -8,6 +8,15 @@ steps:
   - name: "gcr.io/cloud-builders/docker"
     args: ["push", "gcr.io/rb-munish-playground/cicd-testing:latest"]
 
+#Download PyPi Packages
+  - name: "docker.io/library/python:3.7"
+    args: ['pip', 'install', '-t', '/workspace/lib', '-r', 'requirements.txt']
+
+#Run you test cases
+  - name: "docker.io/library/python:3.9-slim"
+    args: ["python3", "test.py"]
+    env: ["PYTHONPATH=/workspace/lib"]
+
 #Deploy on K8s
   - name: "gcr.io/cloud-builders/gke-deploy"
     args:
