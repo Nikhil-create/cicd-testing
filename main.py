@@ -8,6 +8,10 @@ def home():
 @app.route("/nikhil")
 def nikhil():
     return "Welcome nikhil"
+
+@app.route("/saharsh")
+def saharsh():
+    return "Welcome saharsh"
     
 if __name__=='__main__':
     app.run(debug=True)
