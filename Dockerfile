@@ -1,7 +1,6 @@
 FROM python:3.9-slim
 
-RUN pip install gunicorn \
-    pip install flask 
+RUN pip install -r requirements.txt
 
 ENV APP_HOME /app
 
