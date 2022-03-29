@@ -43,10 +43,19 @@ jobs:
     - name: Set up Cloud SDK
       uses: google-github-actions/setup-gcloud@v0
 
+    - name: Configure Docker
+      run: gcloud auth configure-docker
+
     # Get the GKE credentials so we can deploy to the cluster
     - run: |-
         gcloud container clusters get-credentials "$GKE_CLUSTER" --zone "$GKE_ZONE"
     # Deploy sample image to the GKE cluster
+    - name: Build Docker image
+      run: docker build . -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_APP_NAME }}
+
+    - name: Push Docker image
+      run: docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_APP_NAME }}
+
     - name: Deploy
       run: |-
         kubectl apply -f cicd-deployment.yaml
