@@ -6,7 +6,7 @@ resource "google_service_account" "default" {
 resource "google_container_cluster" "primary" {
   name               = "nikhil-public-cluster"
   location           = "us-central1-c"
-  initial_node_count = 2
+  initial_node_count = 3
   node_config {
     # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
     service_account = google_service_account.default.email
